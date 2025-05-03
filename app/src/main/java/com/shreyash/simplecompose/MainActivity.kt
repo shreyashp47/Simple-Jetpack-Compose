@@ -132,8 +132,7 @@ fun MessageCard(msg: Message) {
                         Image(
                             painter = painterResource(id = android.R.drawable.star_big_on),
                             modifier = Modifier
-                                .size(15.dp)
-                                .border(1.dp, Color.White, RectangleShape),
+                                .size(15.dp),
                             contentDescription = "Icon"
                         )
                     }
