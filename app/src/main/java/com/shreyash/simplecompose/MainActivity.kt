@@ -4,7 +4,6 @@ import Message
 import SampleData
 import android.app.Activity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,7 +17,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,10 +26,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -42,7 +46,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
@@ -50,9 +53,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
 import com.shreyash.simplecompose.ui.theme.SimpleComposeTheme
-import kotlin.coroutines.coroutineContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,8 +133,7 @@ fun MessageCard(msg: Message) {
                         Image(
                             painter = painterResource(id = android.R.drawable.star_big_on),
                             modifier = Modifier
-                                .size(15.dp)
-                                .border(1.dp, Color.White, RectangleShape),
+                                .size(15.dp),
                             contentDescription = "Icon"
                         )
                     }
@@ -158,16 +158,77 @@ fun TransparentSystemBars() {
 
 @Composable
 fun Conversation(messages: List<Message>) {
-    LazyColumn(
+    Column(modifier = Modifier
+    )
+    {
+        LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
+            .weight(1f)
             .padding(WindowInsets.systemBars.asPaddingValues())
     ) {
         items(messages) { message ->
             MessageCard(message)
         }
     }
+        ChatInputBar()
+    }
 }
+@Composable
+fun ChatInputBar() {
+    var message by remember { mutableStateOf("") }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Text Field with icons inside
+        TextField(
+            value = message,
+            onValueChange = { message = it },
+            placeholder = { Text(
+                text = "Type a message"
+                ,fontSize = 12.sp,
+
+            ) },
+            modifier = Modifier
+                .weight(1f)
+                .height(50.dp),
+            trailingIcon = {
+                Row {
+                    IconButton(onClick = { /* Handle attachment click */ }) {
+                        Icon(Icons.Default.Add, contentDescription = "Attach")
+                    }
+                    IconButton(onClick = { /* Handle camera click */ }) {
+                        Icon(Icons.Default.Favorite, contentDescription = "Camera")
+                    }
+                }
+            },
+            singleLine = true,
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        // Send Button
+        Button(
+            onClick = {
+                // Handle send click
+                // Maybe clear the message field after sending
+                message = ""
+            },
+            modifier = Modifier.height(40.dp),
+            shape = CircleShape,
+        ) {
+            Text(text = "Send",
+                fontSize = 12.sp,
+
+            )
+        }
+    }
+}
+
+
 
 
 @Preview(showBackground = true)
