@@ -20,8 +20,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 
-// Data class to represent each screen in the bottom navigation
-
 
 // List of bottom navigation items
 val bottomNavItems = listOf(
