@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.compose.rememberNavController
-import com.shreyash.simplecompose.presentation.login.AppNavHost
+import com.shreyash.simplecompose.presentation.AppNavHost
 import com.shreyash.simplecompose.ui.theme.SimpleComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
