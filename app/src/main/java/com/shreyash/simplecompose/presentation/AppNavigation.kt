@@ -59,19 +59,22 @@ import com.shreyash.simplecompose.presentation.home.tabs.SocialTabScreen
 import com.shreyash.simplecompose.presentation.login.LoginScreen
 import kotlinx.coroutines.launch
 
+import com.shreyash.simplecompose.presentation.navigation.NavRoutes
+
 /**
  * Main navigation component that uses Hilt for ViewModel injection
  */
 @Composable
 fun AppNavHost(navController: NavHostController) {
-    NavHost(navController, startDestination = "login") {
-        composable("login") {
+    NavHost(navController, startDestination = NavRoutes.LOGIN) {
+        composable(NavRoutes.LOGIN) {
             // Using hiltViewModel() for ViewModel injection
             LoginScreen(
                 // ViewModel is injected by default parameter in LoginScreen
                 onSuccess = {
-                    navController.navigate("main") {
-                        popUpTo("login") { inclusive = true }
+                    navController.navigate(NavRoutes.MAIN) {
+                        // Clear back stack when navigating to main screen
+                        popUpTo(NavRoutes.LOGIN) { inclusive = true }
                     }
                 }
             )
@@ -79,10 +82,10 @@ fun AppNavHost(navController: NavHostController) {
         
         // Main navigation graph that contains the home screen with bottom navigation
         navigation(
-            startDestination = "home",
-            route = "main"
+            startDestination = NavRoutes.HOME,
+            route = NavRoutes.MAIN
         ) {
-            composable("home") {
+            composable(NavRoutes.HOME) {
                 MainScreen()
             }
         }
@@ -110,10 +113,10 @@ fun MainScreen() {
                     }
                     // Handle navigation to different sections from drawer
                     when (route) {
-                        "profile" -> {
+                        NavRoutes.PROFILE -> {
                             // Navigate to profile or handle profile action
                         }
-                        "settings" -> {
+                        NavRoutes.SETTINGS -> {
                             // Navigate to settings or handle settings action
                         }
                     }
@@ -248,7 +251,7 @@ fun SideMenu(onItemClick: (String) -> Unit) {
                         .size(80.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.primary)
-                        .clickable { onItemClick("profile") },
+                        .clickable { onItemClick(NavRoutes.PROFILE) },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -283,14 +286,14 @@ fun SideMenu(onItemClick: (String) -> Unit) {
             icon = { Icon(Icons.Default.AccountCircle, contentDescription = "Profile") },
             label = { Text("Profile") },
             selected = false,
-            onClick = { onItemClick("profile") }
+            onClick = { onItemClick(NavRoutes.PROFILE) }
         )
         
         NavigationDrawerItem(
             icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
             label = { Text("Settings") },
             selected = false,
-            onClick = { onItemClick("settings") }
+            onClick = { onItemClick(NavRoutes.SETTINGS) }
         )
     }
 }
