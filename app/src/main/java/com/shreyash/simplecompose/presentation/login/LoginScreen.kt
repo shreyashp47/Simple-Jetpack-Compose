@@ -1,7 +1,6 @@
 package com.shreyash.simplecompose.presentation.login
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 
 /**
