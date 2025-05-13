@@ -50,7 +50,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(8.dp))
-        
+
         // Password field
         OutlinedTextField(
             value = state.password,
@@ -60,7 +60,7 @@ fun LoginScreen(
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(Modifier.height(16.dp))
-        
+
         // Login button
         Button(
             onClick = viewModel::login,

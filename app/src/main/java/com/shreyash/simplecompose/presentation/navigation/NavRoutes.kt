@@ -18,4 +18,7 @@ object NavRoutes {
     // Other screens
     const val PROFILE = "profile"
     const val SETTINGS = "settings"
+    
+    // Actions
+    const val LOGOUT = "logout"
 }

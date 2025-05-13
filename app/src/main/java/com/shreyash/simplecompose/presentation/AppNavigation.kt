@@ -6,9 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -43,13 +40,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.shreyash.simplecompose.R
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.shreyash.simplecompose.R
 import com.shreyash.simplecompose.presentation.home.BottomNavBar
 import com.shreyash.simplecompose.presentation.home.bottomNavItems
 import com.shreyash.simplecompose.presentation.home.tabs.ChatTabScreen
@@ -57,9 +54,8 @@ import com.shreyash.simplecompose.presentation.home.tabs.HomeTabScreen
 import com.shreyash.simplecompose.presentation.home.tabs.NotificationTabScreen
 import com.shreyash.simplecompose.presentation.home.tabs.SocialTabScreen
 import com.shreyash.simplecompose.presentation.login.LoginScreen
-import kotlinx.coroutines.launch
-
 import com.shreyash.simplecompose.presentation.navigation.NavRoutes
+import kotlinx.coroutines.launch
 
 /**
  * Main navigation component that uses Hilt for ViewModel injection
@@ -79,7 +75,7 @@ fun AppNavHost(navController: NavHostController) {
                 }
             )
         }
-        
+
         // Main navigation graph that contains the home screen with bottom navigation
         navigation(
             startDestination = NavRoutes.HOME,
@@ -98,11 +94,11 @@ fun MainScreen() {
     val bottomNavController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    
+
     // Get current route to determine which screen is active
     val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -116,6 +112,7 @@ fun MainScreen() {
                         NavRoutes.PROFILE -> {
                             // Navigate to profile or handle profile action
                         }
+
                         NavRoutes.SETTINGS -> {
                             // Navigate to settings or handle settings action
                         }
@@ -150,15 +147,15 @@ fun MainScreen() {
                 composable(bottomNavItems[0].route) {
                     HomeTabScreen()
                 }
-                
+
                 composable(bottomNavItems[1].route) {
                     SocialTabScreen()
                 }
-                
+
                 composable(bottomNavItems[2].route) {
                     ChatTabScreen()
                 }
-                
+
                 composable(bottomNavItems[3].route) {
                     NotificationTabScreen()
                 }
@@ -171,11 +168,11 @@ fun MainScreen() {
 @Composable
 fun AppTopBar(
     currentRoute: String?,
-    onMenuClick: () -> Unit, 
+    onMenuClick: () -> Unit,
     onSearchClick: () -> Unit
 ) {
     TopAppBar(
-        title = { 
+        title = {
             if (currentRoute == bottomNavItems[0].route) {
                 // Show logo for home screen
                 Box(
@@ -261,16 +258,16 @@ fun SideMenu(onItemClick: (String) -> Unit) {
                         modifier = Modifier.size(70.dp)
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
-                
+
                 // User name
                 Text(
                     text = "User Name",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
-                
+
                 // User email
                 Text(
                     text = "user@example.com",
@@ -278,9 +275,9 @@ fun SideMenu(onItemClick: (String) -> Unit) {
                 )
             }
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Drawer menu items
         NavigationDrawerItem(
             icon = { Icon(Icons.Default.AccountCircle, contentDescription = "Profile") },
@@ -288,7 +285,7 @@ fun SideMenu(onItemClick: (String) -> Unit) {
             selected = false,
             onClick = { onItemClick(NavRoutes.PROFILE) }
         )
-        
+
         NavigationDrawerItem(
             icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
             label = { Text("Settings") },
