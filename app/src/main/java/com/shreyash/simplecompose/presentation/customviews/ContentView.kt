@@ -53,7 +53,7 @@ fun CustomContentView() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, backgroundColor = 0xFFEEEEEE)
 @Composable
 fun CustomContentViewPreview() {
     CustomContentView()
